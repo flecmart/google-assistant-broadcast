@@ -67,11 +67,11 @@ function Assistant() {
     }
   }
 
-  this.cast = async (message) => {
+  this.command = async (message) => {
     const assistant = new GoogleAssistant(config.auth);
-    config.conversation.textQuery = `Broadcast ${message}`;
+    config.conversation.textQuery = message;
 
-    console.log(`Sending message (${config.conversation.lang}):`,
+    console.log(`Sending command (${config.conversation.lang}):`,
         config.conversation.textQuery);
 
     return new Promise((resolve, reject) => {
@@ -106,5 +106,7 @@ function Assistant() {
     })
   }
 }
+
+this.cast = async (message) => await this.command(`Broadcast ${message}`);
 
 module.exports = Assistant;
